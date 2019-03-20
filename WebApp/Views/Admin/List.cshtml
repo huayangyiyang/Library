@@ -1,0 +1,39 @@
+﻿@using Model;
+@model IQueryable<LAdmin>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+
+    <a href="~/Admin/Create">新增</a>
+
+    <hr/>
+
+    <div> 
+        <table border="1">
+
+            @foreach (var item in Model)
+            
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.adminname</td>
+                    <td>@item.adminpassword</td>
+                    <td><a href="~/Admin/Edit/@item.Id">修改</a></td>
+                    <td><a href="~/Admin/Delete/@item.Id">删除</a></td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</body>
+</html>

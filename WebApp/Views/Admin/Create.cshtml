@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <div> 
+
+        <form action="~/Admin/Create" method="post">
+            用户名： <input type="text" name="adminname" /> <br/>
+            密码： <input type="password" name="adminpassword" /> <br />
+            <input type="hidden" name="adminroles" value="0" /> <br />
+            <input type="submit" />
+        </form>
+    </div>
+</body>
+</html>

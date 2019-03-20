@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bookNumber" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="bookName" Type="nvarchar" MaxLength="500" />
+          <Property Name="booktype" Type="nvarchar" MaxLength="200" />
+          <Property Name="bookAuthor" Type="nvarchar" MaxLength="500" />
+          <Property Name="bookPublish" Type="nvarchar" MaxLength="800" />
+          <Property Name="bookPublisttime" Type="datetime" />
+          <Property Name="bookversion" Type="nvarchar" MaxLength="100" />
+          <Property Name="bookInTime" Type="datetime" />
+          <Property Name="bookstate" Type="varchar" MaxLength="8" />
+          <Property Name="price" Type="money" />
+          <Property Name="bookDesply" Type="varchar" MaxLength="4" />
+          <Property Name="adminname" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookTypeSec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="parentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Borrowinf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BorrowinfNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="borrowTime" Type="datetime" />
+          <Property Name="returnTime" Type="datetime" />
+          <Property Name="ReaderNumber" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReaderName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="RederCid" Type="nvarchar" MaxLength="18" />
+          <Property Name="deposit" Type="money" />
+          <Property Name="hadleDate" Type="datetime" />
+          <Property Name="adminname" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BrowBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BorrowinfId" Type="int" />
+          <Property Name="BookId" Type="int" />
+          <Property Name="browsOrNot" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Infringement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="readerNum" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReaderName" Type="nvarchar" MaxLength="300" />
+          <Property Name="sumMoney" Type="money" />
+          <Property Name="proseDate" Type="datetime" />
+          <Property Name="BorrowinfId" Type="int" />
+        </EntityType>
+        <EntityType Name="LAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminname" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="adminpassword" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="adminroles" Type="int" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReaderNumber" Type="nvarchar" MaxLength="300" />
+          <Property Name="ReaderName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="RederCid" Type="nvarchar" MaxLength="18" />
+          <Property Name="deposit" Type="money" />
+          <Property Name="hadleDate" Type="datetime" />
+          <Property Name="adminname" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InfringementId" Type="int" />
+          <Property Name="bookNumber" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="bookName" Type="nvarchar" MaxLength="500" />
+          <Property Name="OverDays" Type="int" />
+          <Property Name="everyDayPay" Type="money" />
+          <Property Name="fine" Type="money" />
+        </EntityType>
+        <Association Name="FK__BookTypeS__paren__440B1D61">
+          <End Role="BookType" Type="Self.BookType" Multiplicity="0..1" />
+          <End Role="BookTypeSec" Type="Self.BookTypeSec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookTypeSec">
+              <PropertyRef Name="parentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BrowBook__BookId__3B75D760">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="BrowBook" Type="Self.BrowBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrowBook">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BrowBook__Borrow__3A81B327">
+          <End Role="Borrowinf" Type="Self.Borrowinf" Multiplicity="0..1" />
+          <End Role="BrowBook" Type="Self.BrowBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrowinf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrowBook">
+              <PropertyRef Name="BorrowinfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Infringem__Borro__37A5467C">
+          <End Role="Borrowinf" Type="Self.Borrowinf" Multiplicity="0..1" />
+          <End Role="Infringement" Type="Self.Infringement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrowinf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Infringement">
+              <PropertyRef Name="BorrowinfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ticket__Infringe__3F466844">
+          <End Role="Infringement" Type="Self.Infringement" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Infringement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="InfringementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookType" EntityType="Self.BookType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookTypeSec" EntityType="Self.BookTypeSec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Borrowinf" EntityType="Self.Borrowinf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BrowBook" EntityType="Self.BrowBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Infringement" EntityType="Self.Infringement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LAdmin" EntityType="Self.LAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BookTypeS__paren__440B1D61" Association="Self.FK__BookTypeS__paren__440B1D61">
+            <End Role="BookType" EntitySet="BookType" />
+            <End Role="BookTypeSec" EntitySet="BookTypeSec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BrowBook__BookId__3B75D760" Association="Self.FK__BrowBook__BookId__3B75D760">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BrowBook" EntitySet="BrowBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BrowBook__Borrow__3A81B327" Association="Self.FK__BrowBook__Borrow__3A81B327">
+            <End Role="Borrowinf" EntitySet="Borrowinf" />
+            <End Role="BrowBook" EntitySet="BrowBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Infringem__Borro__37A5467C" Association="Self.FK__Infringem__Borro__37A5467C">
+            <End Role="Borrowinf" EntitySet="Borrowinf" />
+            <End Role="Infringement" EntitySet="Infringement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ticket__Infringe__3F466844" Association="Self.FK__Ticket__Infringe__3F466844">
+            <End Role="Infringement" EntitySet="Infringement" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bookNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bookName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="booktype" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="bookAuthor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="bookPublish" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="bookPublisttime" Type="DateTime" Precision="3" />
+          <Property Name="bookversion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="bookInTime" Type="DateTime" Precision="3" />
+          <Property Name="bookstate" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="bookDesply" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="adminname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BrowBook" Relationship="Self.FK__BrowBook__BookId__3B75D760" FromRole="Book" ToRole="BrowBook" />
+        </EntityType>
+        <EntityType Name="BookType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BookTypeSec" Relationship="Self.FK__BookTypeS__paren__440B1D61" FromRole="BookType" ToRole="BookTypeSec" />
+        </EntityType>
+        <EntityType Name="BookTypeSec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parentId" Type="Int32" />
+          <NavigationProperty Name="BookType" Relationship="Self.FK__BookTypeS__paren__440B1D61" FromRole="BookTypeSec" ToRole="BookType" />
+        </EntityType>
+        <EntityType Name="Borrowinf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BorrowinfNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="borrowTime" Type="DateTime" Precision="3" />
+          <Property Name="returnTime" Type="DateTime" Precision="3" />
+          <Property Name="ReaderNumber" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReaderName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RederCid" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="hadleDate" Type="DateTime" Precision="3" />
+          <Property Name="adminname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BrowBook" Relationship="Self.FK__BrowBook__Borrow__3A81B327" FromRole="Borrowinf" ToRole="BrowBook" />
+          <NavigationProperty Name="Infringement" Relationship="Self.FK__Infringem__Borro__37A5467C" FromRole="Borrowinf" ToRole="Infringement" />
+        </EntityType>
+        <EntityType Name="BrowBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BorrowinfId" Type="Int32" />
+          <Property Name="BookId" Type="Int32" />
+          <Property Name="browsOrNot" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__BrowBook__BookId__3B75D760" FromRole="BrowBook" ToRole="Book" />
+          <NavigationProperty Name="Borrowinf" Relationship="Self.FK__BrowBook__Borrow__3A81B327" FromRole="BrowBook" ToRole="Borrowinf" />
+        </EntityType>
+        <EntityType Name="Infringement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="readerNum" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReaderName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="sumMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="proseDate" Type="DateTime" Precision="3" />
+          <Property Name="BorrowinfId" Type="Int32" />
+          <NavigationProperty Name="Borrowinf" Relationship="Self.FK__Infringem__Borro__37A5467C" FromRole="Infringement" ToRole="Borrowinf" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK__Ticket__Infringe__3F466844" FromRole="Infringement" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="LAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adminpassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adminroles" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReaderNumber" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ReaderName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RederCid" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="hadleDate" Type="DateTime" Precision="3" />
+          <Property Name="adminname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InfringementId" Type="Int32" />
+          <Property Name="bookNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bookName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OverDays" Type="Int32" />
+          <Property Name="everyDayPay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="fine" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Infringement" Relationship="Self.FK__Ticket__Infringe__3F466844" FromRole="Ticket" ToRole="Infringement" />
+        </EntityType>
+        <Association Name="FK__BrowBook__BookId__3B75D760">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="BrowBook" Type="Self.BrowBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrowBook">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookTypeS__paren__440B1D61">
+          <End Role="BookType" Type="Self.BookType" Multiplicity="0..1" />
+          <End Role="BookTypeSec" Type="Self.BookTypeSec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookTypeSec">
+              <PropertyRef Name="parentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BrowBook__Borrow__3A81B327">
+          <End Role="Borrowinf" Type="Self.Borrowinf" Multiplicity="0..1" />
+          <End Role="BrowBook" Type="Self.BrowBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrowinf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrowBook">
+              <PropertyRef Name="BorrowinfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Infringem__Borro__37A5467C">
+          <End Role="Borrowinf" Type="Self.Borrowinf" Multiplicity="0..1" />
+          <End Role="Infringement" Type="Self.Infringement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrowinf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Infringement">
+              <PropertyRef Name="BorrowinfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ticket__Infringe__3F466844">
+          <End Role="Infringement" Type="Self.Infringement" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Infringement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="InfringementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Book" EntityType="Self.Book" />
+          <EntitySet Name="BookType" EntityType="Self.BookType" />
+          <EntitySet Name="BookTypeSec" EntityType="Self.BookTypeSec" />
+          <EntitySet Name="Borrowinf" EntityType="Self.Borrowinf" />
+          <EntitySet Name="BrowBook" EntityType="Self.BrowBook" />
+          <EntitySet Name="Infringement" EntityType="Self.Infringement" />
+          <EntitySet Name="LAdmin" EntityType="Self.LAdmin" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" />
+          <AssociationSet Name="FK__BrowBook__BookId__3B75D760" Association="Self.FK__BrowBook__BookId__3B75D760">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BrowBook" EntitySet="BrowBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookTypeS__paren__440B1D61" Association="Self.FK__BookTypeS__paren__440B1D61">
+            <End Role="BookType" EntitySet="BookType" />
+            <End Role="BookTypeSec" EntitySet="BookTypeSec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BrowBook__Borrow__3A81B327" Association="Self.FK__BrowBook__Borrow__3A81B327">
+            <End Role="Borrowinf" EntitySet="Borrowinf" />
+            <End Role="BrowBook" EntitySet="BrowBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Infringem__Borro__37A5467C" Association="Self.FK__Infringem__Borro__37A5467C">
+            <End Role="Borrowinf" EntitySet="Borrowinf" />
+            <End Role="Infringement" EntitySet="Infringement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ticket__Infringe__3F466844" Association="Self.FK__Ticket__Infringe__3F466844">
+            <End Role="Infringement" EntitySet="Infringement" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MyLibraryEntities">
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="Model.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="bookNumber" ColumnName="bookNumber" />
+                <ScalarProperty Name="bookName" ColumnName="bookName" />
+                <ScalarProperty Name="booktype" ColumnName="booktype" />
+                <ScalarProperty Name="bookAuthor" ColumnName="bookAuthor" />
+                <ScalarProperty Name="bookPublish" ColumnName="bookPublish" />
+                <ScalarProperty Name="bookPublisttime" ColumnName="bookPublisttime" />
+                <ScalarProperty Name="bookversion" ColumnName="bookversion" />
+                <ScalarProperty Name="bookInTime" ColumnName="bookInTime" />
+                <ScalarProperty Name="bookstate" ColumnName="bookstate" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="bookDesply" ColumnName="bookDesply" />
+                <ScalarProperty Name="adminname" ColumnName="adminname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookType">
+            <EntityTypeMapping TypeName="Model.BookType">
+              <MappingFragment StoreEntitySet="BookType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookTypeSec">
+            <EntityTypeMapping TypeName="Model.BookTypeSec">
+              <MappingFragment StoreEntitySet="BookTypeSec">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Borrowinf">
+            <EntityTypeMapping TypeName="Model.Borrowinf">
+              <MappingFragment StoreEntitySet="Borrowinf">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BorrowinfNum" ColumnName="BorrowinfNum" />
+                <ScalarProperty Name="borrowTime" ColumnName="borrowTime" />
+                <ScalarProperty Name="returnTime" ColumnName="returnTime" />
+                <ScalarProperty Name="ReaderNumber" ColumnName="ReaderNumber" />
+                <ScalarProperty Name="ReaderName" ColumnName="ReaderName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="RederCid" ColumnName="RederCid" />
+                <ScalarProperty Name="deposit" ColumnName="deposit" />
+                <ScalarProperty Name="hadleDate" ColumnName="hadleDate" />
+                <ScalarProperty Name="adminname" ColumnName="adminname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BrowBook">
+            <EntityTypeMapping TypeName="Model.BrowBook">
+              <MappingFragment StoreEntitySet="BrowBook">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BorrowinfId" ColumnName="BorrowinfId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="browsOrNot" ColumnName="browsOrNot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Infringement">
+            <EntityTypeMapping TypeName="Model.Infringement">
+              <MappingFragment StoreEntitySet="Infringement">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="readerNum" ColumnName="readerNum" />
+                <ScalarProperty Name="ReaderName" ColumnName="ReaderName" />
+                <ScalarProperty Name="sumMoney" ColumnName="sumMoney" />
+                <ScalarProperty Name="proseDate" ColumnName="proseDate" />
+                <ScalarProperty Name="BorrowinfId" ColumnName="BorrowinfId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LAdmin">
+            <EntityTypeMapping TypeName="Model.LAdmin">
+              <MappingFragment StoreEntitySet="LAdmin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="adminname" ColumnName="adminname" />
+                <ScalarProperty Name="adminpassword" ColumnName="adminpassword" />
+                <ScalarProperty Name="adminroles" ColumnName="adminroles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reader">
+            <EntityTypeMapping TypeName="Model.Reader">
+              <MappingFragment StoreEntitySet="Reader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ReaderNumber" ColumnName="ReaderNumber" />
+                <ScalarProperty Name="ReaderName" ColumnName="ReaderName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="RederCid" ColumnName="RederCid" />
+                <ScalarProperty Name="deposit" ColumnName="deposit" />
+                <ScalarProperty Name="hadleDate" ColumnName="hadleDate" />
+                <ScalarProperty Name="adminname" ColumnName="adminname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ticket">
+            <EntityTypeMapping TypeName="Model.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InfringementId" ColumnName="InfringementId" />
+                <ScalarProperty Name="bookNumber" ColumnName="bookNumber" />
+                <ScalarProperty Name="bookName" ColumnName="bookName" />
+                <ScalarProperty Name="OverDays" ColumnName="OverDays" />
+                <ScalarProperty Name="everyDayPay" ColumnName="everyDayPay" />
+                <ScalarProperty Name="fine" ColumnName="fine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

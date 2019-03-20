@@ -1,0 +1,25 @@
+﻿@model Model.LAdmin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <div>
+
+        <form action="~/Admin/Edit" method="post">
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            用户名： <input type="text" name="adminname" value="@Model.adminname" /> <br />
+            密码： <input type="password" name="adminpassword" value="@Model.adminpassword"/> <br />
+             <input type="hidden" name="adminroles" value="@Model.adminroles" /> <br />
+            <input type="submit" />
+        </form>
+    </div>
+</body>
+</html>
